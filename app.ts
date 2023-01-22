@@ -5,8 +5,11 @@ import logger from "morgan";
 import cookieParser from "cookie-parser"
 import listsRouter from "./src/routes/lists";
 import createError from "http-errors";
+import cors from "cors";
 
 const app = express();
+// Activate cross origin (CORS)
+app.use(cors())
 
 // Set up mongoose connection
 mongoose.set('strictQuery', false);
