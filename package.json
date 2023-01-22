@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "dev": "mkdir -p dist && cp -r ./views ./dist/views && sleep 0 && concurrently 'npx tsc --watch' 'npx nodemon dist/bin/www.js'",
-    "compile": "npx tsc"
+    "clean": "rm -rf dist && mkdir -p dist && mkdir -p dist/src && cp -r ./src/views ./dist/src/views",
+    "compile": "npx tsc",
+    "start": "npm run clean && npm run compile && concurrently 'npx tsc --watch' 'npx nodemon dist/src/bin/www.js'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

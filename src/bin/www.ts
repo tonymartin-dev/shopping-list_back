@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-import app from "../app";
+import app from "../../app";
 import http from "http";
 import debuggerParent from "debug";
 var debug = debuggerParent('shopping-list-back:server');

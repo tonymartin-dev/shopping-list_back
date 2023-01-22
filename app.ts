@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import path from "path";
 import logger from "morgan";
 import cookieParser from "cookie-parser"
-import listsRouter from "./routes/lists";
+import listsRouter from "./src/routes/lists";
 import createError from "http-errors";
 
 const app = express();

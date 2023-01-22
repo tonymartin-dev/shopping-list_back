@@ -15,7 +15,7 @@ This instance need a Database called "shopping-lists" with a collection called "
 - Launch MongoDB service: `sudo systemctl start mongod`
 - Check MongoDB status: `sudo systemctl status mongod`
 - Stop MongoDB service: `sudo systemctl stop mongod`
-- Serve project in development mode, with watch: `npm run dev`
+- Serve project in development mode, with watch: `npm start`
 
 ## Default url
 
