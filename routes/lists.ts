@@ -3,13 +3,15 @@ import { checkList, ListModel } from "../schemas/list"
 
 const listsRouter = express.Router()
 
-listsRouter.get('/', function(req, res, next) {
-  ListModel.find({})
-  .exec((err, story) => {
-    //if (err) return handleError(err)
-    res.status(200)
-    res.send(story)
-  })
+listsRouter.get('/', async (req, res, next) => {  
+  const lists = await ListModel.find({})  
+  res.status(200).send(lists)
+})
+
+listsRouter.get('/list/:id', async (req, res, next) => {
+  const _id = req.params.id  
+  const list = await ListModel.findOne({_id})
+  res.status(200).send(list)
 })
 
 listsRouter.post('/', async (req, res, next) => {
@@ -19,11 +21,11 @@ listsRouter.post('/', async (req, res, next) => {
     res.send(newList)
   } catch (e) {
     const error = e as (Error & {code: number})
-    res.status(400)
     if (error.code === 11000 || error.code === 11001) {
       res.status(409).send({error: 'You can\'t repeat list names.'})
+      return
     }
-    res.send({error: error.toString()})
+    res.status(400).send({error: error.toString()})
   }
 })
 
