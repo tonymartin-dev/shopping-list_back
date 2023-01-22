@@ -32,14 +32,12 @@ listsRouter.post('/', async (req, res, next) => {
 listsRouter.put('/', async (req, res, next) => {
   try {
     const newList = checkList(req.body)
-    const savedList = await ListModel.updateOne(
+    await ListModel.updateOne(
       { _id: newList.id },
       newList,
-      {
-        runValidators: true
-      }
+      { runValidators: true }
     )
-    res.send(savedList)
+    res.send(req.body)
   } catch(e) {
     res.send({error: (e as Error).toString()})
   }
