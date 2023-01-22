@@ -4,14 +4,18 @@ This is a node (typescript) + express backend, pointing to mongoDB database desi
 
 It exposes a simple CRUD API which handles shopping lists.
 
-## Useful commands
+## Startup
 
-If you want to start project for development, just run
+This backend works with a MongoDB database. So, first of all, you need a MongoDB instance in your localhost in your IP `127.0.0.1`.
 
+This instance need a Database called "shopping-lists" with a collection called "lists", wich has to meet the schema located in `/src/schemas/list.ts`.
 
-```bash
-npm run dev
-```
+### Usefull commands
+
+- Launch MongoDB service: `sudo systemctl start mongod`
+- Check MongoDB status: `sudo systemctl status mongod`
+- Stop MongoDB service: `sudo systemctl stop mongod`
+- Serve project in development mode, with watch: `npm run dev`
 
 ## Default url
 
