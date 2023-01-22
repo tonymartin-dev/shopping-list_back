@@ -12,5 +12,10 @@ listsRouter.get('/', function(req, res, next) {
   });
 });
 
+listsRouter.get('/', function(req, res, next) {
+  console.log("BODY", req.body);
+  
+})
+
 
 export default listsRouter
