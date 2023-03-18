@@ -27,9 +27,59 @@ http://localhost:3000
 
 ---
 
+## **/login**
+
+### POST
+
+Authenticates a user and returns their JWT auth token
+
+- **Payload**: 
+  ```json
+  {
+    "username": "blahblahblah",
+    "password": "blehblehbleh"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "token": "wergmp9w54ut9w458tuv98t7wer9t87nu"
+  }
+  ```
+
+---
+
+## **/users**
+
+### POST
+
+Creates a new user.
+
+> IMPORTANT: only admin users can create another users
+
+- **Headers**: This endpoint requires an Auth Bearer Token to be included in the header for authentication.
+- **Payload**:
+  ```json
+  {
+    "username": "blah",
+    "email": "blah@blah.com",
+    "password": "XXXXXX"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "username": "blah",
+    "email": "blah@blah.com",
+    "password": "XXXXXX"
+  }
+  ```
+
+---
+
 ## **/lists**
 
-#### GET
+### GET
 
 Returns all lists
 
@@ -52,7 +102,7 @@ Returns all lists
   ]
   ```
 
-#### POST
+### POST
 
 Creates a list
 
@@ -73,7 +123,7 @@ Creates a list
   }
   ```
 
-#### PUT
+### PUT
 
 Updates a list
 
@@ -94,7 +144,7 @@ Updates a list
   }
   ```
 
-#### DELETE
+### DELETE
 
 Deletes a list
 
@@ -115,7 +165,7 @@ Deletes a list
 
 ## **/lists/list/:id**
 
-#### GET
+### GET
 
 Returns a list from a given id
 
