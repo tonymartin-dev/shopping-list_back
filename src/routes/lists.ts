@@ -39,17 +39,21 @@ listsRouter.put('/', async (req, res, next) => {
     )
     res.send(req.body)
   } catch(e) {
-    res.send({error: (e as Error).toString()})
+    res.status(400).send({error: (e as Error).toString()})
   }
 })
 
 listsRouter.delete('/', async (req, res, next) => {
   try {
     const _id = req.body.id
+    if(typeof _id !== "string") {
+      throw Error("Invalid value for 'id' property.")
+    }
+    
     await ListModel.deleteOne({ _id })
     res.send({message: "List succesfully deleted"})
   } catch(e) {
-    res.send({error: (e as Error).toString()})
+    res.status(400).send({error: (e as Error).toString()})
   }
 
 
