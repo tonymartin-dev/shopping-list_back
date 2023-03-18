@@ -16,7 +16,6 @@ listsRouter.get('/list/:id', async (req, res, next) => {
 
 listsRouter.post('/', async (req, res, next) => {
   try{
-    console.log("BODY", req)
     const newList = new ListModel(checkList(req.body))
     await newList.save()
     res.send(newList)
