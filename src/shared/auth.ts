@@ -30,7 +30,7 @@ export const verifyToken = (token: string): User | null => {
 }
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split(' ')[1];
+  const token = req.headers.authorization?.split(' ')[1];  
 
   if (!token) {
     return res.status(401).json({ error: 'Auth token not provided' });
@@ -38,18 +38,19 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 
   try {
     const decodedToken = jwt.verify(token, SECRET_KEY);
-    let tokenUser: {username: string, _id: string}
+    
+    let tokenUser: {username: string, id: string}
 
     if(
       typeof decodedToken !== "string" &&
       "user" in decodedToken &&
       "username" in decodedToken.user &&
-      "_id" in decodedToken.user
+      "id" in decodedToken.user
     ) {
       tokenUser = decodedToken.user
       req.body.tokenUser = {
         username: tokenUser.username,
-        id: tokenUser._id
+        id: tokenUser.id
       }
       next();
       return

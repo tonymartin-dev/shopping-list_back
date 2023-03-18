@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 export interface List {
-  name: string,
+  name: string
   items: string[]
   completed?: boolean
+  userCreator: string
 }
 
 export interface SavedList extends List {
@@ -15,7 +16,8 @@ const Schema = mongoose.Schema;
 const listSchema = new Schema<List>({
   name: { type: String, required: true },
   items: { type: [String], required: true },
-  completed: { type: Boolean, required: false }
+  completed: { type: Boolean, required: false },
+  userCreator: { type: String, required: true }
 });
 
 export const ListModel = mongoose.model<List>("List", listSchema);
@@ -33,6 +35,10 @@ export const checkList = (list: unknown, isSaved?: boolean): SavedList => {
     checkedList.items.some(item => typeof item !== "string")
   ){
     throw new Error("Field 'items' is not properly formatted")
+  }
+
+  if(!checkedList.userCreator) {
+    throw new Error("User creator not found")
   }
 
   if(isSaved && !checkedList.id){
