@@ -1,11 +1,11 @@
 import express from "express"
-import { deleteController, getAllController, getByIdController, updateController } from "../controllers/lists"
+import { deleteController, createController, getByIdController, updateController, getAllController } from "../controllers/lists"
 
 const listsRouter = express.Router()
 
-listsRouter.get('/', )
+listsRouter.get('/', getAllController)
 listsRouter.get('/list/:id', getByIdController)
-listsRouter.post('/', getAllController)
+listsRouter.post('/', createController)
 listsRouter.put('/', updateController)
 listsRouter.delete('/', deleteController)
 

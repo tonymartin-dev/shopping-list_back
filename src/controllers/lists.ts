@@ -1,12 +1,21 @@
 import { checkList, ListModel } from "../schemas/list"
 import { Request, Response, NextFunction } from 'express';
 
-export const getByIdController = async (req: Request, res: Response, _next: NextFunction) => {
+
+
+export const getAllController = async (req: Request, res: Response, _next: NextFunction) => {
     const lists = await ListModel.find({})
     res.status(200).send(lists)
 }
 
-export const getAllController = async (req: Request, res: Response, _next: NextFunction) => {
+
+export const getByIdController = async (req: Request, res: Response, _next: NextFunction) => {
+    const _id = req.params.id  
+    const list = await ListModel.findOne({_id})
+    res.status(200).send(list)
+}
+
+export const createController = async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const newList = new ListModel(checkList(req.body))
         await newList.save()
