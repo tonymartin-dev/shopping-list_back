@@ -16,13 +16,14 @@ listsRouter.get('/list/:id', async (req, res, next) => {
 
 listsRouter.post('/', async (req, res, next) => {
   try{
+    console.log("BODY", req)
     const newList = new ListModel(checkList(req.body))
     await newList.save()
     res.send(newList)
   } catch (e) {
     const error = e as (Error & {code: number})
     if (error.code === 11000 || error.code === 11001) {
-      res.status(409).send({error: 'You can\'t repeat list names.'})
+      res.status(400).send({error: 'You can\'t repeat list names.'})
       return
     }
     res.status(400).send({error: error.toString()})
