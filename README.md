@@ -24,6 +24,7 @@ http://localhost:3000
 ```
 
 ## Endpoints
+
 ---
 
 ## **/lists**
@@ -37,23 +38,16 @@ Returns all lists
   ```json
   [
     {
-        "_id": "63cc94f2d2d1f5b8209d89b9",
-        "name": "test 1",
-        "items": [
-            "Potatoes",
-            "Tomatoes",
-            "soup"
-        ],
-        "__v": 0
+      "_id": "63cc94f2d2d1f5b8209d89b9",
+      "name": "test 1",
+      "items": ["Potatoes", "Tomatoes", "soup"],
+      "__v": 0
     },
     {
-        "_id": "63cc975088c44cff4bb335dd",
-        "name": "test 2",
-        "items": [
-            "Potatoes",
-            "Tomatoes"
-        ],
-        "__v": 0
+      "_id": "63cc975088c44cff4bb335dd",
+      "name": "test 2",
+      "items": ["Potatoes", "Tomatoes"],
+      "__v": 0
     }
   ]
   ```
@@ -88,7 +82,7 @@ Updates a list
   {
     "name": "test",
     "items": ["Potatoes", "Tomatoes", "Soup"],
-    "_id": "63cc975088c44cff4bb335dd",
+    "_id": "63cc975088c44cff4bb335dd"
   }
   ```
 - **Response**: returns saved list, just as sent. Example for given body:
@@ -107,7 +101,7 @@ Deletes a list
 - **Payload**: Object with the `id` of the product to be deleted. Example:
   ```json
   {
-    "_id": "63cc975088c44cff4bb335dd",
+    "_id": "63cc975088c44cff4bb335dd"
   }
   ```
 - **Response**: returns a succes message:
