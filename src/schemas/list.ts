@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export interface List {
   name: string,
   items: string[]
+  completed?: boolean
 }
 
 export interface SavedList extends List {
@@ -12,8 +13,9 @@ export interface SavedList extends List {
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema<List>({
-  name: String,
-  items: Array<String>
+  name: { type: String, required: true },
+  items: { type: [String], required: true },
+  completed: { type: Boolean, required: false }
 });
 
 export const ListModel = mongoose.model("List", listSchema);
