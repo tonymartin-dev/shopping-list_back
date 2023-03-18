@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../schemas/user';
+import { SavedUser, User } from '../schemas/user';
 import dotenv from 'dotenv';
+import { Request, Response, NextFunction } from 'express';
 
 dotenv.config();
 
@@ -13,8 +14,9 @@ export const hashPassword = async (password: string) => {
   return hashedPassword;
 };
 
-export const generateToken = (user: User): string => {
-  const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: '24h' });
+export const generateToken = (user: SavedUser): string => {
+  const tokenData = { user: {username: user.username, id: user._id}}
+  const token = jwt.sign( tokenData, SECRET_KEY, { expiresIn: '24h' });
   return token;
 }
 
@@ -26,3 +28,34 @@ export const verifyToken = (token: string): User | null => {
     return null;
   }
 }
+
+export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Auth token not provided' });
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    let tokenUser: {username: string, _id: string}
+
+    if(
+      typeof decodedToken !== "string" &&
+      "user" in decodedToken &&
+      "username" in decodedToken.user &&
+      "_id" in decodedToken.user
+    ) {
+      tokenUser = decodedToken.user
+      req.body.username = tokenUser.username;
+      req.body.id = tokenUser._id
+      next();
+      return
+    }
+
+    throw Error("Error obtaining data from token")    
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ error: 'Invalid Token' });
+  }
+};

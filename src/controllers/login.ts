@@ -1,12 +1,12 @@
-import { Router, Request, Response } from 'express';
-import { UserModel } from '../schemas/user';
+import { Request, Response } from 'express';
+import { SavedUser, UserModel } from '../schemas/user';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../shared/auth';
 
 export const loginController = async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
-    const user = await UserModel.findOne({username})
+    const user: SavedUser | null = await UserModel.findOne({username})
   
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -21,4 +21,12 @@ export const loginController = async (req: Request, res: Response) => {
     const token = generateToken(user);
   
     return res.json({ token });
+}
+
+export const checkController = async (req: Request, res: Response) => {
+    return res.json({
+        message: "auth web token checked",
+        username: req.body.username,
+        id: req.body.id
+    })
 }
