@@ -18,7 +18,7 @@ const listSchema = new Schema<List>({
 
 export const ListModel = mongoose.model("List", listSchema);
 
-export const checkList = (list: unknown, isSaved?: boolean) => {
+export const checkList = (list: unknown, isSaved?: boolean): SavedList => {
   const checkedList = list as SavedList;
 
   if(!checkedList?.name || typeof checkedList.name !== "string") {
