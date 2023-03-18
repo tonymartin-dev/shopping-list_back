@@ -47,8 +47,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
       "_id" in decodedToken.user
     ) {
       tokenUser = decodedToken.user
-      req.body.username = tokenUser.username;
-      req.body.id = tokenUser._id
+      req.body.tokenUser = {
+        username: tokenUser.username,
+        id: tokenUser._id
+      }
       next();
       return
     }

@@ -5,6 +5,12 @@ import { hashPassword } from '../shared/auth';
 export const createController = async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body;
+    
+    if(req.body.tokenUser?.username !== "Tork") {
+      res.status(403).json({error: "You have no permisions"})
+      return
+    }
+
     if(
         typeof username !== "string" || 
         typeof email !== "string" ||  
