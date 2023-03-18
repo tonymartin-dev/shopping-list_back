@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 import listsRouter from "./src/routes/lists";
 import createError from "http-errors";
 import cors from "cors";
+import usersRouter from "./src/routes/users";
 
 const app = express();
 // Activate cross origin (CORS)
@@ -30,7 +31,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * Router
+ */ 
 app.use('/lists', listsRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
