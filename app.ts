@@ -7,6 +7,7 @@ import listsRouter from "./src/routes/lists";
 import createError from "http-errors";
 import cors from "cors";
 import usersRouter from "./src/routes/users";
+import loginRouter from "./src/routes/login";
 
 const app = express();
 // Activate cross origin (CORS)
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  */ 
 app.use('/lists', listsRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
